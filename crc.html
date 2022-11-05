@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <code>
+    <pre>
         public class crc{
 
             public static String data,divisor,dividend,dividend1,dividePart;
@@ -82,6 +82,84 @@
                 }
             }
         }
-    </code>
+    </pre>
+
+    <!-- 
+        public class crc{
+
+    public static String data,divisor,dividend,dividend1,dividePart;
+
+    public static void main(String args[]){
+        data = "1010101010";
+        divisor = "11001";
+        dividend = getDividend(divisor, data);
+        dividend1 = dividend; //making a copy of dividend
+        // remainder should be 0010
+        System.out.printf("Your Divisor is: %s\n\n",divisor);
+        System.out.printf("Your Data is: %s\n\n",data);
+        System.out.printf("Your Dividend is: %s\n\n",dividend);
+        System.out.printf("%d zeroes added to data\n\n",divisor.length()-1);
+        dividePart="";
+        System.out.println(dividend1);
+        getDivideData();
+        while((divisor.length()-dividePart.length())<=dividend1.length()){
+            updateDividePart();
+            dividePart = xor(dividePart,divisor);
+        }
+        String remainder = dividePart+dividend1;
+        System.out.println("Remainder = "+remainder);
+    }
+
+    
+    public static String getDividend(String divsor, String data){
+        int numberOfZeroes = divsor.length()-1;
+        String dividend = data;
+        for(int i=0;i<numberOfZeroes;i++){
+            dividend += "0";
+        }
+        return dividend;        
+    }
+    
+    public static char xor(char bit1, char bit2){
+        char answer = '1';
+        if(bit1 == bit2)
+            answer = '0';
+            return answer;
+        }
+        
+    public static String xor(String part1,String part2){
+        String answer = "";
+        if(part1.length()!=part2.length())
+            return answer;
+        for(int i=0;i<part1.length();i++){
+            answer+=xor(part1.charAt(i),part2.charAt(i));
+        }
+        return adjustToOne(answer);
+    }
+
+    // converts 00110 to 110
+    public static String adjustToOne(String data){
+        String adjustedData = data;
+        adjustedData = adjustedData.substring(adjustedData.indexOf('1'));
+        return adjustedData;
+    }
+    
+    public static void getDivideData(){
+        dividePart = dividend1.substring(0,divisor.length());
+        dividend1 = dividend1.substring(divisor.length());
+    }
+    
+    private static void updateDividePart() {
+        int partLength = dividePart.length();
+        int divisorLength = divisor.length();
+        if(partLength<divisorLength){
+            int toBeAdded = divisorLength - partLength;
+            dividePart += dividend1.substring(0,toBeAdded);
+            dividend1 = dividend1.substring(toBeAdded);
+        }
+    }
+}
+     -->
+    
 </body>
 </html>
