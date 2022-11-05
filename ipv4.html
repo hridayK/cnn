@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+import java.util.*;
+public class ip_ex {
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        System.out.println("Enter the ip address");
+        String ip = in.next();
+        String ip1[] = ip.split("\\.");
+        String fstip = ip1[0];
+        System.out.println(fstip);
+        int checkf = Integer.valueOf(fstip);
+        char ch = ' ';
+        if(checkf<128){
+            System.out.println("Class A");
+            System.out.println("BroadCast address: "+(ip1[0]+".255.255.255"));
+            System.out.println("Network address: "+(ip1[0]+".0.0.0"));
+            ch='A';
+        }
+        else if(checkf>=128 && checkf < 192){
+            System.out.println("Class B");
+            System.out.println("BroadCast address: "+(ip1[0]+"."+ip1[1]+".255.255"));
+            System.out.println("Network address: "+(ip1[0]+"."+ip1[1]+".0.0"));
+            ch='B';
+        }
+        else if(checkf>=192 && checkf<224){
+            System.out.println("Class C");
+            System.out.println("BroadCast address: "+(ip1[0]+"."+ip1[1]+"."+ip1[2]+".255"));
+            System.out.println("Network address: "+(ip1[0]+"."+ip1[1]+"."+ip1[2]+".0"));
+            ch='C';
+        }
+        else if(checkf>=224 && checkf<240){
+            System.out.println("Class D");
+            // System.out.println("BroadCast address: "+(ip1[0]+".255.255.255"));
+            // System.out.println("Network address: "+(ip1[0]+".0.0.0"));
+        }
+        else if(checkf>=240 && checkf<=255){
+            System.out.println("Class E");
+            // System.out.println("BroadCast address: "+(ip1[0]+".255.255.255"));
+            // System.out.println("Network address: "+(ip1[0]+".0.0.0"));
+        }
+        else{
+            System.out.println("Wrong address");
+        }
+
+        System.out.println("\n\nEnter the number of subnets needed (power of 2)");
+        int subnet = in.nextInt();
+        int size = 256/subnet;
+        System.out.println(size);
+        int sub_range[][] = new int[size][2];
+        for(int i = 0 ; i <subnet;i++){
+            if(ch=='A'){
+                sub_range[i][0] = i*size;
+                sub_range[i][1] = ((i+1)*size)-1;
+                System.out.println("SUBNET "+(i+1));
+                System.out.println("The starting address is "+ip1[0]+"."+(sub_range[i][0]+1)+"."+"0.0");
+                System.out.println("The ending address is "+ip1[0]+"."+(sub_range[i][1]-1)+"."+"255.255");
+
+                System.out.println("The broadcast address "+ip1[0]+"."+sub_range[i][1]+"."+"255.255");
+                System.out.println("the network address is "+ip1[0]+"."+sub_range[i][0]+"."+"0.0");
+            }
+            if(ch=='B'){
+                sub_range[i][0] = i*size;
+                sub_range[i][1] = ((i+1)*size)-1;
+                System.out.println("SUBNET "+(i+1));
+                System.out.println("The starting address is "+ip1[0]+"."+ip1[1]+"."+(sub_range[i][0]+1)+".0");
+                System.out.println("The ending address is "+ip1[0]+"."+ip1[1]+"."+(sub_range[i][1]-1)+".255");
+
+                System.out.println("The broadcast address is "+ip1[0]+"."+ip1[1]+"."+(sub_range[i][0])+"."+".0");
+                System.out.println("The network address is "+ip1[0]+"."+ip1[1]+"."+(sub_range[i][1])+"."+".255");
+            }
+            if(ch=='C'){
+                sub_range[i][0] = i*size;
+                sub_range[i][1] = ((i+1)*size)-1;
+                System.out.println("SUBNET "+(i+1));
+                System.out.println("The starting address is "+ip1[0]+"."+ip1[1]+"."+ip1[2]+"."+(sub_range[i][0]+1));
+                System.out.println("The ending address is "+ip1[0]+"."+ip1[1]+"."+ip1[2]+"."+(sub_range[i][1]-1));
+
+                System.out.println("The broadcast address is "+ip1[0]+"."+ip1[1]+"."+ip1[2]+"."+(sub_range[i][0]));
+                System.out.println("The network address is "+ip1[0]+"."+ip1[1]+"."+ip1[2]+"."+(sub_range[i][1]));
+            }
+        }
+        
+        
+    }
+}
+     -->
+</body>
+</html>

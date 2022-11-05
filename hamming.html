@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <pre>
+        public class crc{
+
+            public static String data,divisor,dividend,dividend1,dividePart;
+        
+            public static void main(String args[]){
+                data = "1010101010";
+                divisor = "11001";
+                dividend = getDividend(divisor, data);
+                dividend1 = dividend; //making a copy of dividend
+                // remainder should be 0010
+                System.out.printf("Your Divisor is: %s\n\n",divisor);
+                System.out.printf("Your Data is: %s\n\n",data);
+                System.out.printf("Your Dividend is: %s\n\n",dividend);
+                System.out.printf("%d zeroes added to data\n\n",divisor.length()-1);
+                dividePart="";
+                System.out.println(dividend1);
+                getDivideData();
+                while((divisor.length()-dividePart.length())<=dividend1.length()){
+                    updateDividePart();
+                    dividePart = xor(dividePart,divisor);
+                }
+                String remainder = dividePart+dividend1;
+                System.out.println("Remainder = "+remainder);
+            }
+        
+            
+            public static String getDividend(String divsor, String data){
+                int numberOfZeroes = divsor.length()-1;
+                String dividend = data;
+                for(int i=0;i &lt numberOfZeroes;i++){
+                    dividend += "0";
+                }
+                return dividend;        
+            }
+            
+            public static char xor(char bit1, char bit2){
+                char answer = '1';
+                if(bit1 == bit2)
+                    answer = '0';
+                    return answer;
+                }
+                
+            public static String xor(String part1,String part2){
+                String answer = "";
+                if(part1.length()!=part2.length())
+                    return answer;
+                for(int i=0;i &lt part1.length();i++){
+                    answer+=xor(part1.charAt(i),part2.charAt(i));
+                }
+                return adjustToOne(answer);
+            }
+        
+            // converts 00110 to 110
+            public static String adjustToOne(String data){
+                String adjustedData = data;
+                adjustedData = adjustedData.substring(adjustedData.indexOf('1'));
+                return adjustedData;
+            }
+            
+            public static void getDivideData(){
+                dividePart = dividend1.substring(0,divisor.length());
+                dividend1 = dividend1.substring(divisor.length());
+            }
+            
+            private static void updateDividePart() {
+                int partLength = dividePart.length();
+                int divisorLength = divisor.length();
+                if(partLength &lt divisorLength){
+                    int toBeAdded = divisorLength - partLength;
+                    dividePart += dividend1.substring(0,toBeAdded);
+                    dividend1 = dividend1.substring(toBeAdded);
+                }
+            }
+        }
+    </pre>
+
+    <!-- 
+import java.util.*;
+
+class Hamming{
+
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter your data word");
+        String dataWord = sc.nextLine();
+
+        int n = dataWord.length();
+        int r = calcNumberOfRedundantBits(n);
+
+        System.out.println("\nThe number of redundant bits needed are: " + r);
+        System.out.println("Therefore the total length of the codeword is: " + (n+r) + "\n");
+        
+        String codeWord = calcCodeWord(dataWord, n, r);
+
+        System.out.println(codeWord);
+        // System.out.println(replaceChar("1010100","1",0));
+
+        System.out.println("\nEnter the received codeword");
+        String recCodeWord = sc.nextLine();
+        System.out.println();
+        int errorIndex = errorDetector(recCodeWord);
+        System.out.println(errorIndex==0?"No error":("error at " + errorIndex));
+
+
+    }
+
+
+    static String getXORpart(String x, int n){
+
+        //100010
+
+        String req = x.substring(0,x.length()-(n-1));
+
+        String extracted="";
+
+        boolean flag = true;
+        int n1 = req.length()-1;
+        int counter = 0;
+        do{
+            if(flag){
+                extracted+=req.charAt(n1);
+            }
+            counter++;
+            if(counter == n){
+                flag=!flag;
+                counter=0;
+            }
+            n1--;
+        }while(n1>-1);
+
+        return extracted;
+
+    }
+
+    static String calcCodeWord(String dataWord, int n, int r){
+
+        //we need to first build the codeword before calculating the final one
+        String codeWord = "";
+        int count = 0;
+        for(int i=(n+r)-1;i>=0;i--){
+            if(isPowerOfTwo(i+1)){
+                codeWord+='0';
+            }else{
+                codeWord+=dataWord.charAt(count);
+                count++;
+            }
+        }
+        
+        int counter = codeWord.length()-1;
+        while(counter!=0){
+            int index = codeWord.length()-counter;
+            if(isPowerOfTwo(index)){
+                codeWord = replaceChar(codeWord, 
+                Integer.toString(
+                    getXOR(getXORpart(codeWord, index)
+                    )
+                ), counter);
+            }
+            counter--;
+        }
+
+        return codeWord;
+
+    }
+
+    static int calcNumberOfRedundantBits(int n){
+        /*
+         * 2^r >= n + r + 1
+         * r = number of redundant bits
+         * n = number of bits in dataWord
+        */
+        int r = -1;
+        for(int i=0;i<n;i++){
+            if(Math.pow(2,i)>=(n+i+1)){
+                r = i;
+                break;
+            }
+        }
+        return r;
+    }
+
+    static boolean isPowerOfTwo(int x){
+        return (Math.floor(Math.log(x)/Math.log(2))) == (Math.ceil(Math.log(x)/Math.log(2)));
+    }
+
+    static int getXOR(String x){
+
+        HashMap map = new HashMap<Character, Integer>();
+        map.put('1', 1);
+        map.put('0', 0);
+
+        int xor = (int)map.get(x.charAt(0));
+        for(int i=1;i<x.length();i++){
+            xor = xor ^ (int)map.get(x.charAt(i));
+        }
+        return xor;
+    }
+
+    static String replaceChar(String replaceFrom, String replaceWith, int atIndex){
+        String replaced=replaceFrom.substring(0,atIndex) + replaceWith + replaceFrom.substring(atIndex+1);
+        return replaced;
+    }
+
+    static int errorDetector(String codeWord){
+        int counter = codeWord.length()-1;
+        String binaryAnswer = "";
+        while(counter!=0){
+            int index = codeWord.length()-counter;
+            if(isPowerOfTwo(index)){
+                binaryAnswer = getXOR(getXORpart(codeWord, index)) + binaryAnswer;
+            }
+            counter--;
+        }
+        int errorPosition = Integer.parseInt(binaryAnswer,2);
+        return errorPosition;
+    }
+
+}
+     -->
+</body>
+</html>

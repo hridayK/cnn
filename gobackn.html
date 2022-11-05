@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <pre>
+        import java.util.*;
+public class gobackn {
+    public static void main(String[] args) {
+        Scanner sc =  new Scanner(System.in);
+        
+        System.out.println("Enter the number of bits in sequence number:");
+        int n = sc.nextInt();
+        int maxSequence = (int)Math.pow(2, n) - 1;
+        System.out.println("Window size is: " + maxSequence);
+        
+        System.out.println("Enter the number of frames to be sent:");
+        int nFrames = sc.nextInt();
+        
+        ArrayList<Integer> sendingFrames = new ArrayList<Integer>();
+        ArrayList<Integer> receievedFrames = new ArrayList<Integer>();
+        
+        int seqNum = 1;
+        for(int i=0;i &lt nFrames;i++){
+            if(seqNum==maxSequence+1)
+                seqNum=1;
+            sendingFrames.add(seqNum);
+            seqNum++;
+        }
+        System.out.println("The frames are: "+sendingFrames.toString());
+        System.out.println(sendingFrames.indexOf(3));
+        while(sendingFrames.size()!=0){
+            if(sendingFrames.size()&gt=maxSequence){
+                for(int i=0;i &lt maxSequence;i++){
+                    System.out.println("Transsfered frame of sequence number: " + sendingFrames.get(i));
+                }
+                System.out.println("Enter acknowledgement number, i.e. the last frame it received correctly:");
+                int fr = sc.nextInt();
+                int index = sendingFrames.indexOf(fr);
+                for(int i=0;i<=index;i++){
+                    sendingFrames.remove(0);
+                }
+            }else{
+                // for(int i=0;i &lt sendingFrames.size();i++){
+                    // sendingFrames.remove(0);
+                    sendingFrames.removeAll(sendingFrames);
+                // }
+            }
+            System.out.println(sendingFrames);
+        }
+    }
+}
+
+    </pre>
+    <!-- 
+        import java.util.*;
+public class gobackn {
+    public static void main(String[] args) {
+        Scanner sc =  new Scanner(System.in);
+        
+        System.out.println("Enter the number of bits in sequence number:");
+        int n = sc.nextInt();
+        int maxSequence = (int)Math.pow(2, n) - 1;
+        System.out.println("Window size is: " + maxSequence);
+        
+        System.out.println("Enter the number of frames to be sent:");
+        int nFrames = sc.nextInt();
+        
+        ArrayList<Integer> sendingFrames = new ArrayList<Integer>();
+        ArrayList<Integer> receievedFrames = new ArrayList<Integer>();
+        
+        int seqNum = 1;
+        for(int i=0;i<nFrames;i++){
+            if(seqNum==maxSequence+1)
+                seqNum=1;
+            sendingFrames.add(seqNum);
+            seqNum++;
+        }
+        System.out.println("The frames are: "+sendingFrames.toString());
+        System.out.println(sendingFrames.indexOf(3));
+        while(sendingFrames.size()!=0){
+            if(sendingFrames.size()>=maxSequence){
+                for(int i=0;i<maxSequence;i++){
+                    System.out.println("Transsfered frame of sequence number: " + sendingFrames.get(i));
+                }
+                System.out.println("Enter acknowledgement number, i.e. the last frame it received correctly:");
+                int fr = sc.nextInt();
+                int index = sendingFrames.indexOf(fr);
+                for(int i=0;i<=index;i++){
+                    sendingFrames.remove(0);
+                }
+            }else{
+                // for(int i=0;i<sendingFrames.size();i++){
+                    // sendingFrames.remove(0);
+                    sendingFrames.removeAll(sendingFrames);
+                // }
+            }
+            System.out.println(sendingFrames);
+        }
+    }
+}
+     -->
+</body>
+</html>
